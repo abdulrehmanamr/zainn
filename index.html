@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation: Convince Areeba</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0f172a,#7f1d1d,#1e3a8a);color:#fff;overflow-x:hidden}
+.loading{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999}
+.bar{width:300px;height:12px;background:#333;border-radius:20px;overflow:hidden}.fill{height:100%;width:0;background:#fff;animation:load 4s forwards}
+@keyframes load{to{width:100%}}
+.hidden{display:none}
+.container{max-width:1000px;margin:auto;padding:40px 20px;text-align:center}
+h1{font-size:3rem}.card{background:rgba(255,255,255,.1);padding:20px;border-radius:20px;backdrop-filter:blur(8px);margin:20px auto}
+.btn{padding:15px 30px;border:none;border-radius:999px;font-size:1.1rem;cursor:pointer;margin:10px}
+.yes{background:#22c55e;color:#fff}.no{background:#ef4444;color:#fff;position:relative}
+#message{font-size:1.3rem;margin-top:20px}
+.heart,.confetti{position:fixed;pointer-events:none}
+.spider{font-size:60px;cursor:pointer;animation:swing 3s infinite}
+@keyframes swing{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+#success{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:999}
+.modal{background:#111;padding:30px;border-radius:20px;max-width:600px;text-align:center}
+</style>
+</head>
+<body>
+<div class="loading" id="loading">
+<h2 id="loadText">Consulting Spider‑Man...</h2>
+<div class="bar"><div class="fill"></div></div>
+</div>
+
+<div class="container hidden" id="main">
+<div class="spider" id="spider">🕷️</div>
+<h1>🚨 Attention Areeba! 🚨</h1>
+<p>This is an official message from <b>Zain</b> regarding a highly classified Spider‑Man mission.</p>
+
+<div class="card">
+<h2>Mission Brief</h2>
+<p>🎬 Spider‑Man: Brand New Day</p>
+<p>📍 Cinema</p>
+<p>🍿 Popcorn: Mandatory</p>
+<p>😊 Fun Level: Maximum</p>
+<p>After extensive research, Zain concluded this movie will be 1000% better with Areeba.</p>
+</div>
+
+<h2>Areeba, will you watch Spider‑Man: Brand New Day with Zain?</h2>
+<button class="btn yes" id="yesBtn">YES ❤️</button>
+<button class="btn no" id="noBtn">NO 😈</button>
+<div id="message"></div>
+</div>
+
+<div id="success">
+<div class="modal">
+<h1>🎉 Mission Accepted 🎉</h1>
+<p>Congratulations Areeba! You officially accepted Zain's Spider‑Man mission.</p>
+<p>Scientists are celebrating. Marvel fans are cheering. Popcorn sales are rising. ❤️</p>
+<h3 id="countdown"></h3>
+<button class="btn yes">🍿 LET'S GO!</button>
+<p>See you at the cinema, Areeba ❤️ — Zain</p>
+</div>
+</div>
+
+<script>
+const loadingTexts=["Consulting Spider‑Man...","Calculating Fun Levels...","Checking Popcorn Availability..."];
+let i=0;
+const lt=document.getElementById("loadText");
+const interval=setInterval(()=>{i=(i+1)%loadingTexts.length;lt.textContent=loadingTexts[i]},1200);
+setTimeout(()=>{
+clearInterval(interval);
+document.getElementById("loading").style.display="none";
+document.getElementById("main").classList.remove("hidden");
+},4200);
+
+const noBtn=document.getElementById("noBtn");
+const msgs=["Are you sure? 🥺","Think again 😭","Spider‑Man is disappointed 🕷️","Nice try 😂","Marvel removed this option"];
+let tries=0;
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("click",moveNo);
+function moveNo(){
+tries++;
+noBtn.textContent=msgs[(tries-1)%msgs.length];
+noBtn.style.position="fixed";
+noBtn.style.left=Math.random()*(window.innerWidth-120)+"px";
+noBtn.style.top=Math.random()*(window.innerHeight-60)+"px";
+noBtn.style.transform=`scale(${Math.max(.3,1-tries*.1)}) rotate(${tries*15}deg)`;
+if(tries>7){noBtn.style.display="none";document.getElementById("message").textContent="System Notice: NO option removed by Marvel.";}
+}
+
+document.getElementById("yesBtn").onclick=()=>{
+for(let i=0;i<120;i++){
+let d=document.createElement("div");
+d.className="confetti";
+d.textContent=Math.random()>.5?"🎉":"❤️";
+d.style.left=Math.random()*window.innerWidth+"px";
+d.style.top="-20px";
+d.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(d);
+let y=0;
+let t=setInterval(()=>{
+y+=5; d.style.top=y+"px";
+if(y>window.innerHeight){clearInterval(t);d.remove();}
+},20);
+}
+document.getElementById("success").style.display="flex";
+};
+
+let clicks=0;
+document.getElementById("spider").onclick=()=>{
+clicks++;
+if(clicks===5) alert("Secret Unlocked: Areeba is awesome ❤️");
+};
+
+const target = new Date("July 31, 2026 19:00:00");
+setInterval(()=>{
+let diff=target-new Date();
+let d=Math.floor(diff/86400000);
+let h=Math.floor(diff%86400000/3600000);
+let m=Math.floor(diff%3600000/60000);
+document.getElementById("countdown").textContent=`⏳ Movie Night in ${d}d ${h}h ${m}m`;
+},1000);
+</script>
+</body>
+</html>
